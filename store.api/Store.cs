@@ -4,7 +4,7 @@ namespace StoreApi
 {
     public class Store
     {
-        public Store(int id, string name, string storeIdGuid)
+        public Store(int id, string name, Guid storeIdGuid)
         {
             Id = id;
             Name = name;
@@ -13,8 +13,7 @@ namespace StoreApi
 
         public int Id { get; private set; }
         public string Name { get; private set; }
-        //public Guid StoreIdGuid { get; private set; }
-        public string StoreIdGuid { get; private set; }
+        public Guid StoreIdGuid { get; private set; }
 
     }
 }
