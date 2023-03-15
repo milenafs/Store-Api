@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections;
 
-namespace StoreApi.Controllers
+namespace Store.Api.Controllers
 {
     [ApiController]
     [Route("stores")]
@@ -36,22 +36,35 @@ namespace StoreApi.Controllers
             return Ok(StaticStores());
         }
 
-        [Route("{storeId}"), HttpGet]
+        [Route("{storeIdGuid}"), HttpGet]
         [SwaggerOperation(Summary = "Return a specific store by its IdGuid")]
         [ProducesResponseType(typeof(Store), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetStoreById(Guid storeId)
+        public async Task<IActionResult> GetStoreByIdGuid(Guid storeIdGuid)
         {
-            if (storeId == null)
+            if (storeIdGuid == null)
                 return BadRequest();
 
-            var Store = StaticStores().FirstOrDefault(s => s.StoreIdGuid.Equals(storeId));
+            var Store = StaticStores().FirstOrDefault(s => s.StoreIdGuid.Equals(storeIdGuid));
 
             if(Store == null)
                 return NotFound();
 
             return Ok(Store);
+        }
+
+        [Route("exist/{storeIdGuid}"), HttpGet]
+        [SwaggerOperation(Summary = "Return true if the store exists")]
+        public async Task<Boolean> StoreExist(Guid storeIdGuid)
+        {
+            if (storeIdGuid == null) return false;
+
+            var Store = StaticStores().FirstOrDefault(s => s.StoreIdGuid.Equals(storeIdGuid));
+
+            if (Store == null) return false;
+
+            return true;
         }
 
     }
