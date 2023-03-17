@@ -67,5 +67,8 @@ namespace Store.Api.Controllers
             return true;
         }
 
+        // TODO: Endpoint to insert new store in  mongoDB
+        //
+
     }
 }
