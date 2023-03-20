@@ -1,4 +1,3 @@
-using store.api;
 using StoreModel = Store.Api.Store;
 
 namespace Store.Tests
@@ -8,7 +7,7 @@ namespace Store.Tests
         [Fact]
         public void Validate_When_Store_With_Null_Name_Should_Return_False_Using_Fact()
         {
-            var store = new StoreModel(1, null, Guid.NewGuid());
+            var store = new StoreModel( null, Guid.NewGuid());
             var result = store.Validate();
 
             Assert.False(result);
@@ -19,7 +18,7 @@ namespace Store.Tests
         [InlineData("")]
         public void Validate_When_Store_With_Null_Name_Should_Return_False_Using_Theory(String storeName)
         {
-            var store = new StoreModel(1, storeName, Guid.NewGuid());
+            var store = new StoreModel(storeName, Guid.NewGuid());
             var result = store.Validate();
 
             Assert.False(result);
@@ -28,7 +27,7 @@ namespace Store.Tests
         [Fact]
         public void Validate_When_Store_With_Valid_Name_Should_Return_True_Using_Fact()
         {
-            var store = new StoreModel(1, "Loja teste", Guid.NewGuid());
+            var store = new StoreModel("Loja teste", Guid.NewGuid());
             var result = store.Validate();
 
             Assert.True(result);
@@ -41,7 +40,7 @@ namespace Store.Tests
         [InlineData("Olive Jardim")]
         public void Validate_When_Store_With_Valid_Name_Should_Return_True_Using_Theory(String storeName)
         {
-            var store = new StoreModel(1, storeName, Guid.NewGuid());
+            var store = new StoreModel(storeName, Guid.NewGuid());
             var result = store.Validate();
 
             Assert.True(result);
@@ -52,7 +51,7 @@ namespace Store.Tests
         [InlineData("Hamburgueria de batatas", true)]
         public void Validate_Store_Name(String storeName, bool expectedResult)
         {
-            var store = new StoreModel(1, storeName, Guid.NewGuid());
+            var store = new StoreModel(storeName, Guid.NewGuid());
             var result = store.Validate();
 
             Assert.Equal(expectedResult,result);
