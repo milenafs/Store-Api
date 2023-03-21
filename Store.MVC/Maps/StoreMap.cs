@@ -11,10 +11,10 @@ namespace Store.MVC.Maps
         public StoreMap(EntityTypeBuilder<StoreModel> entityBuilder) 
         {
             entityBuilder.HasKey(x => x.IdGuid);
-            entityBuilder.ToTable("store");
+                entityBuilder.ToTable("store");
 
-            entityBuilder.Property(x => x.IdGuid).HasColumnName("idGuid");
-            entityBuilder.Property(x => x.Name).HasColumnName("name");
+            entityBuilder.Property(x => x.IdGuid).HasColumnName("idGuid").HasColumnType("Guid");
+            entityBuilder.Property(x => x.Name).HasColumnName("name");  
         }   
     }
 }

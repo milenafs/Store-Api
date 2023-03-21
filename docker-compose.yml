@@ -1,24 +1,39 @@
 version: '3.4'
 
 services:
-  store.api:
-    image: ${DOCKER_REGISTRY-}storeapi
-    build:
-      context: .
-      dockerfile: store.api/Dockerfile
+  #store.api:
+  #  image: ${DOCKER_REGISTRY-}storeapi
+  #  build:
+  #    context: .
+  #    dockerfile: store.api/Dockerfile
+  #  ports:
+  #    - "8000:80"     
+  #  environment:
+  #    DB_CONNECTION_STRING: "host=postgres_image;port=5432;database=storedb;username=storeuser;password=storeuser"
   db:
     image: postgres
     restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: "storeuser"
       POSTGRES_PASSWORD: "storeuser"
       POSTGRES_DB: "storedb"
     ports:
       - 5432:5432
-       
+
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+  store.mvc:
+    image: ${DOCKER_REGISTRY-}storemvc
+    build:
+      context: .
+      dockerfile: Store.MVC/Dockerfile
+    environment:
+      DB_CONNECTION_STRING: "host=postgres_image;port=5432;database=storedb;username=storeuser;password=storeuser"
+volumes:
+  db_volume:
 

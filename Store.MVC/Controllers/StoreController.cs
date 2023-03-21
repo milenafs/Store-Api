@@ -23,11 +23,15 @@ namespace Store.MVC.Controllers
         [ProducesResponseType(typeof(IList<StoreModel>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetStores()
         {
-            return Ok(_context.Stores.Where(s => s.Name.Contains("Mercado")).Select((s) => new
-            {
-                IdGuid = s.IdGuid,
-                Name = s.Name,
-            }).ToList());
+            var store = _context.Stores.FirstOrDefault();
+
+            //var store = _context.Stores.Select((s) => new
+            //{
+            //    IdGuid = s.IdGuid,
+            //    Name = s.Name,
+            //}).ToList();
+
+            return Ok(store);
         }
 
         [Route("{storeIdGuid}"), HttpGet]
